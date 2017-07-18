@@ -17,6 +17,8 @@ var ypos; //y of top left tile of visible 2x2
 var xmax = 10; //maximum x of available tiles 
 var ymax = 4; //maximum y of available tiles
 
+var nearestSecond;
+
 /////////////////
 
 //maintains time variable of videos
@@ -29,20 +31,29 @@ $(document).on("sjs:masterTimeupdate", function(event, param) {
 
 /////////////////////
 
+//gets the src of specific second frame, should be changed to work for seconds/half seconds
+
+function imageSrc(x,y,second) {
+    return 'seafront/seafront_full/twolevels/level3/pics/' + '0' + y + '_' + '0' + x + "_" + second + '.jpg';
+}
+
 //gets the src of specific video tile
 
 function videoSrc(x,y) {
-    return 'seafront/seafront_full/twolevels/level3/' + '0' + y + '_' + '0' + x + '.mp4';
+    return 'seafront/seafront_full/twolevels/level3/vids/' + '0' + y + '_' + '0' + x + '.mp4';
 }
 
 //loads video into memory 
 
 function bufferVideo(x,y){
-    v = document.createElement("video");
-    vjs = videojs(v);
+    v = $("<video/>");
+    id = x + "." + y;
+    v.attr("id",id);
+    $("#bufferedVideos").append(v);
+    vjs = videojs(id);
     vjs.src(videoSrc(x,y));
+    return vjs;
 }
-
 
 //for loop that runs through every tile in the window and supplies videojs id
 
@@ -62,7 +73,8 @@ function tileUpdate(operation) {
 
 function update() {
     var video = videojs(id);
-    video.poster("http://via.placeholder.com/390x390"); //should be changed to appropriate thumbnail
+    video.poster(imageSrc(xtile+xposTile,ytile+yposTile, nearestSecond));  //should be changed to appropriate thumbnail
+    console.log(imageSrc(xtile+xposTile,ytile+yposTile, nearestSecond));
     video.src(videoSrc(xtile+xposTile,ytile+yposTile));
 }
 
@@ -70,6 +82,7 @@ function update() {
 
 function changeTilesSrc(newxposTile, newyposTile) {
     timeBefore = time;
+    nearestSecond = Math.round(timeBefore) || 8;
     xposTile = newxposTile;
     yposTile = newyposTile;
     tileUpdate(update);
