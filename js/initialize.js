@@ -73,13 +73,16 @@ function tileUpdate(operation) {
 function updatePoster() {
     var video = videojs(id);
     var src = imageSrc(xtile+xposTile,ytile+yposTile, nearestSecond);
-    video.poster(src);  
+    video.poster(src);
+    //$("#"+id).css("visibility", "hidden");
+    $("#"+id).parent().css("background-image", 'url("' + src + '")');
 }
 
 
 function updateVideo() {
     var video = videojs(id);
     video.src(videoSrc(xtile+xposTile,ytile+yposTile));
+    
 }
 
 
@@ -91,8 +94,10 @@ function changeTilesSrc(newxposTile, newyposTile) {
     xposTile = newxposTile;
     yposTile = newyposTile;
 
+    $(".video-js").css("visibility", "hidden", 'important');
     tileUpdate(updatePoster);
     tileUpdate(updateVideo);
+    setTimeout(function(){$(".video-js").css("visibility", "visible");}, 500);
 
     $(document).trigger("sjs:setCurrentTime", [timeBefore]);
     $(document).trigger("sjs:play", []);

@@ -1,9 +1,9 @@
 /*jshint multistr: true */
 
-var tileSize = 640; 
+var tileSize = 800; 
 
-var xtilesWindow = 4;
-var ytilesWindow = 3;
+var xtilesWindow = 3;
+var ytilesWindow = 2;
 
 $(document).ready(function(){
     tileUpdate(tiles);
