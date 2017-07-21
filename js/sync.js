@@ -4,16 +4,16 @@ var loggingEnabled = false;
 
 
 (function($) {
-    videoId1 = "0";
+
     // videoId2 = "example_video_2";
     // videoId3 = "example_video_3";
     mediagroupId = "main";
 
-    $(document).ready(function() {
-        $(document).on("sjs:allPlayersReady", function() {
-            $("#bufferInfo").html("All players have been successfully initialized.");
-            $(document).trigger("sjs:play", []);
-        });
+    $(document).on("sync", function() {
+
+        //UPDATES
+
+        //buttons
         $("#buttonPlay").click(function() {
             $(document).trigger("sjs:play", []);
         });
@@ -23,16 +23,42 @@ var loggingEnabled = false;
         $("#buttonResetVideo").click(function() {
             $(document).trigger("sjs:setCurrentTime", [0]);
         });
-        $("#xslider").on("input",function(){
-            value = $("#xslider").val();
-            $("#xpos").text(value);
-            setPosition(value,ypos);
-            });
-        $("#yslider").on("input",function(){
-            value = $("#yslider").val();
-            $("#ypos").text(value);
-            setPosition(xpos,value);
-            });
+
+        //keys
+
+        document.body.onkeydown = function() {
+            var e = event.keyCode;
+            var step = 0.01;
+            if (e == 40) { //down function
+
+                setPosition(xpos, ypos + step);
+            } else if (e == 37) { //left function
+                setPosition(xpos - step, ypos);
+            } else if (e == 39) { //right function
+                setPosition(xpos + step, ypos);
+            } else if (e == 38) { //up function
+                setPosition(xpos, ypos - step);
+            }
+
+
+        };
+
+        window.addEventListener("keydown", function(e) {
+            // space and arrow keys
+            if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+                e.preventDefault();
+            }
+        }, false);
+
+
+
+        //INFO
+
+
+        $(document).on("sjs:allPlayersReady", function() {
+            $("#bufferInfo").html("All players have been successfully initialized.");
+            $(document).trigger("sjs:play", []);
+        });
         $(document).on("sjs:buffering", function() {
             $("#bufferInfo").html("Not every player has buffered, yet. Pausing...");
         });
@@ -44,7 +70,7 @@ var loggingEnabled = false;
             $(document).trigger("sjs:play", []);
         });
         $(document).on("sjs:masterTimeupdate", function(event, param) {
-            var rounded = Math.round(param*10)/10;
+            var rounded = Math.round(param * 10) / 10;
             $("#currentTime").html(rounded);
         });
 
@@ -53,7 +79,7 @@ var loggingEnabled = false;
         $(document).trigger("sjs:stopBufferChecker");
         $.synchronizeVideos(0, mediagroupId);
 
-        
+
 
     });
 })(jQuery);

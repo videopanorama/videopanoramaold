@@ -1,12 +1,9 @@
 
 
-var xtilesWindow = 3;
-var ytilesWindow = 3;
 
-var tileSize = 390;
 
-var xtiles = 2;
-var ytiles = 2;
+
+
 
 var xposTile; //x of current top left tile of 3x3 grid 
 var yposTile; //y of current top left tile of 3x3 grid
@@ -18,6 +15,8 @@ var xmax = 10; //maximum x of available tiles
 var ymax = 4; //maximum y of available tiles
 
 var nearestSecond;
+
+var firstTime = true;
 
 /////////////////
 
@@ -69,14 +68,20 @@ function tileUpdate(operation) {
 
 /////////////////
 
-//changes video src depending on xposTile and yposTile, for tileUpdate
+//changes video and poster src depending on xposTile and yposTile, for tileUpdate
 
-function update() {
+function updatePoster() {
     var video = videojs(id);
-    video.poster(imageSrc(xtile+xposTile,ytile+yposTile, nearestSecond));  //should be changed to appropriate thumbnail
-    console.log(imageSrc(xtile+xposTile,ytile+yposTile, nearestSecond));
+    var src = imageSrc(xtile+xposTile,ytile+yposTile, nearestSecond);
+    video.poster(src);  
+}
+
+
+function updateVideo() {
+    var video = videojs(id);
     video.src(videoSrc(xtile+xposTile,ytile+yposTile));
 }
+
 
 //runs update for every tile
 
@@ -85,10 +90,13 @@ function changeTilesSrc(newxposTile, newyposTile) {
     nearestSecond = Math.round(timeBefore) || 8;
     xposTile = newxposTile;
     yposTile = newyposTile;
-    tileUpdate(update);
+
+    tileUpdate(updatePoster);
+    tileUpdate(updateVideo);
 
     $(document).trigger("sjs:setCurrentTime", [timeBefore]);
     $(document).trigger("sjs:play", []);
+    firstTime = false;
 }
 
 //changes xpos and ypos, if xposTile or yposTile needs to be changed then changesTilesSrc is runned
@@ -131,16 +139,21 @@ function setPosition(newxpos, newypos) {
 //initializes every video container, for tileUpdate
 
 function initialize() {
-    $("#videos").append('<div class="col-sm-4 space-0 video"><video width="' + tileSize + '" height="' + tileSize + '" mediagroup="main" id="' + id + '" class="video-js"></video></div>');
+    $("#" + id).attr("mediagroup", "main");
     var video = videojs(id, { loop: true, loadingSpinner: false });
-    video.poster("http://via.placeholder.com/390x390");
+    video.width(tileSize);
+    video.height(tileSize);
+
+    
 }
 
-$(document).ready(function() {
-    tileUpdate(initialize);
-    setPosition(3, 1);
-    changeTilesSrc(3,1);
-});
+
+$(document).on("startMaster", function(){
+            tileUpdate(initialize);
+            setPosition(0, 0);
+            $(document).trigger("sync");
+        });
+
 
 
 

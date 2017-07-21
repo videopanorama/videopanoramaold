@@ -1,5 +1,33 @@
+/*jshint multistr: true */
+
+var tileSize = 1280; 
+
+var xtilesWindow = 4;
+var ytilesWindow = 3;
 
 $(document).ready(function(){
+    tileUpdate(tiles);
+    overlay();
+    $(document).trigger("startMaster");
+});
+
+
+
+
+
+function tiles() {
+  for (ytile = 0; ytile < ytilesWindow; ytile++) {
+        $("#videos").append("<tr>");
+        for (xtile = 0; xtile < xtilesWindow; xtile++) {
+            id = xtile + "_" + ytile;
+            $("#videos").append('<th> <video id="' + id + '" class="video-js"></video></th>');
+        }
+        $("#videos").append("</tr>");
+    }
+ $("#videoContainer").css("left", -tileSize/2).css("top", -tileSize/2);
+}
+
+function overlay(){
         var x = tileSize/2;
         $('.overlay:eq(0)').css({
             top: 0,
@@ -25,5 +53,5 @@ $(document).ready(function(){
             width: '100%',
             height: x
         });
-});
+}
 

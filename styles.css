@@ -1,0 +1,41 @@
+
+
+    body {
+        width: 100%;
+
+
+    }
+    
+    .overlay {
+        position: absolute;
+        background: white;
+        opacity: 1;
+    }
+    
+    #videoContainer {
+        position: absolute;
+        overflow: hidden;
+
+       }
+
+    
+    #videos {
+        position: relative;
+        border-collapse: collapse;
+}
+
+
+
+
+
+th{
+    padding:0; margin:0;
+}
+
+tr{
+    padding:0; margin:0;
+}
+
+
+
+
