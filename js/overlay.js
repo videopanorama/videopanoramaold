@@ -1,6 +1,6 @@
 /*jshint multistr: true */
 
-var tileSize = 1280; 
+var tileSize = 640; 
 
 var xtilesWindow = 4;
 var ytilesWindow = 3;
