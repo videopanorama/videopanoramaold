@@ -101,10 +101,11 @@ function changeTilesSrc(newxposTile, newyposTile) {
     xposTile = newxposTile;
     yposTile = newyposTile;
 
-    $(".video-js").css("visibility", "hidden", 'important');
+    //$(".video-js").css("visibility", "hidden", 'important');
+        tileUpdate(updateVideo);
     tileUpdate(updatePoster);
-    tileUpdate(updateVideo);
-    setTimeout(function(){$(".video-js").css("visibility", "visible");}, 100);
+
+    //setTimeout(function(){$(".video-js").css("visibility", "visible");}, 100);
 
     $(document).trigger("sjs:setCurrentTime", [timeBefore]);
     $(document).trigger("sjs:play", []);
