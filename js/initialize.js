@@ -33,13 +33,13 @@ $(document).on("sjs:masterTimeupdate", function(event, param) {
 //gets the src of specific second frame, should be changed to work for seconds/half seconds
 
 function imageSrc(x,y,second) {
-    return 'seafront/seafront_full/twolevels/level3/pics/' + '0' + y + '_' + '0' + x + "_" + second + '.jpg';
+    return 'https://videopanorama.github.io/seafront/seafront_full/twolevels/level3/pics/' + '0' + y + '_' + '0' + x + "_" + second + '.jpg';
 }
 
 //gets the src of specific video tile
 
 function videoSrc(x,y) {
-    return 'seafront/seafront_full/twolevels/level3/vids/' + '0' + y + '_' + '0' + x + '.mp4';
+    return 'https://videopanorama.github.io/seafront/seafront_full/twolevels/level3/vids/' + '0' + y + '_' + '0' + x + '.mp4';
 }
 
 //loads video into memory 
@@ -52,6 +52,13 @@ function bufferVideo(x,y){
     vjs = videojs(id);
     vjs.src(videoSrc(x,y));
     return vjs;
+}
+
+//loads poster into memory
+
+function bufferPoster(x,y){
+    Image1= new Image(150,20);
+    Image1.src = imageSrc(x,y,1);
 }
 
 //for loop that runs through every tile in the window and supplies videojs id
@@ -72,7 +79,7 @@ function tileUpdate(operation) {
 
 function updatePoster() {
     var video = videojs(id);
-    var src = imageSrc(xtile+xposTile,ytile+yposTile, nearestSecond);
+    var src = imageSrc(xtile+xposTile,ytile+yposTile, 1);
     video.poster(src);
     //$("#"+id).css("visibility", "hidden");
     $("#"+id).parent().css("background-image", 'url("' + src + '")');
@@ -90,7 +97,7 @@ function updateVideo() {
 
 function changeTilesSrc(newxposTile, newyposTile) {
     timeBefore = time;
-    nearestSecond = Math.round(timeBefore) || 8;
+    nearestSecond = Math.ceil(timeBefore) || 8;
     xposTile = newxposTile;
     yposTile = newyposTile;
 
@@ -148,8 +155,6 @@ function initialize() {
     var video = videojs(id, { loop: true, loadingSpinner: false });
     video.width(tileSize);
     video.height(tileSize);
-
-    
 }
 
 
