@@ -104,7 +104,7 @@ function changeTilesSrc(newxposTile, newyposTile) {
     $(".video-js").css("visibility", "hidden", 'important');
     tileUpdate(updatePoster);
     tileUpdate(updateVideo);
-    setTimeout(function(){$(".video-js").css("visibility", "visible");}, 500);
+    setTimeout(function(){$(".video-js").css("visibility", "visible");}, 100);
 
     $(document).trigger("sjs:setCurrentTime", [timeBefore]);
     $(document).trigger("sjs:play", []);
