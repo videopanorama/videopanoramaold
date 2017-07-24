@@ -1,11 +1,15 @@
 /*jshint multistr: true */
 
-var tileSize = 800; 
+
 
 var xtilesWindow = 3;
 var ytilesWindow = 2;
 
+var tileSize;
+
+
 $(document).ready(function(){
+    tileSize = $(window).width()/(xtilesWindow-1); 
     tileUpdate(tiles);
     overlay();
     $(document).trigger("startMaster");

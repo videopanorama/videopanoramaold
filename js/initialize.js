@@ -33,13 +33,13 @@ $(document).on("sjs:masterTimeupdate", function(event, param) {
 //gets the src of specific second frame, should be changed to work for seconds/half seconds
 
 function imageSrc(x,y,second) {
-    return 'https://videopanorama.github.io/seafront/seafront_full/twolevels/level3/pics/' + '0' + y + '_' + '0' + x + "_" + second + '.jpg';
+    return 'seafront/seafront_full/twolevels/level3/pics/' + '0' + y + '_' + '0' + x + "_" + second + '.jpg';
 }
 
 //gets the src of specific video tile
 
 function videoSrc(x,y) {
-    return 'https://videopanorama.github.io/seafront/seafront_full/twolevels/level3/vids/' + '0' + y + '_' + '0' + x + '.mp4';
+    return 'seafront/seafront_full/twolevels/level3/vids/' + '0' + y + '_' + '0' + x + '.mp4';
 }
 
 //loads video into memory 
@@ -82,7 +82,7 @@ function updatePoster() {
     var src = imageSrc(xtile+xposTile,ytile+yposTile, 1);
     video.poster(src);
     //$("#"+id).css("visibility", "hidden");
-    $("#"+id).parent().css("background-image", 'url("' + src + '")');
+    //$("#"+id).parent().css("background-image", 'url("' + src + '")');
 }
 
 
@@ -97,12 +97,12 @@ function updateVideo() {
 
 function changeTilesSrc(newxposTile, newyposTile) {
     timeBefore = time;
-    nearestSecond = Math.ceil(timeBefore) || 8;
+    nearestSecond = (Math.round(timeBefore) % 8) + 1;
     xposTile = newxposTile;
     yposTile = newyposTile;
 
     //$(".video-js").css("visibility", "hidden", 'important');
-        tileUpdate(updateVideo);
+    tileUpdate(updateVideo);
     tileUpdate(updatePoster);
 
     //setTimeout(function(){$(".video-js").css("visibility", "visible");}, 100);
@@ -158,6 +158,13 @@ function initialize() {
     video.height(tileSize);
 }
 
+function changeZoom(zoom) {
+    tileUpdate(function(){
+    var video = videojs(id, { loop: true, loadingSpinner: false });
+    video.width(zoom);
+    video.height(zoom);
+});
+}
 
 $(document).on("startMaster", function(){
             tileUpdate(initialize);

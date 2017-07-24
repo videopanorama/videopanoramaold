@@ -32,11 +32,11 @@ var loggingEnabled = false;
             if (e == 40) { //down function
 
                 setPosition(xpos, ypos + step);
-            } else if (e == 37) { //left function
+            } if (e == 37) { //left function
                 setPosition(xpos - step, ypos);
-            } else if (e == 39) { //right function
+            } if (e == 39) { //right function
                 setPosition(xpos + step, ypos);
-            } else if (e == 38) { //up function
+            } if (e == 38) { //up function
                 setPosition(xpos, ypos - step);
             }
 
