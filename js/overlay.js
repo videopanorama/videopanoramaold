@@ -9,8 +9,7 @@ var tileSize;
 
 
 $(document).ready(function() {
-    //tileSize = $(window).width()/(xtilesWindow-1); 
-    tileSize = 800;
+    tileSize = $(window).width()/(xtilesWindow-1); 
     tileUpdate(tiles);
     $(document).trigger("startMaster");
 });
