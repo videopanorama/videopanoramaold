@@ -137,10 +137,10 @@ function setPosition(newxpos, newypos) {
 
 
 
-    var right = newxpos - newxposTile - 0.5;
+    var right = newxpos - newxposTile;
     $("#videos").css("right", right*tileSize);
 
-    var bottom = newypos - newyposTile - 0.5;
+    var bottom = newypos - newyposTile;
     $("#videos").css("bottom", bottom*tileSize);
 
     xpos = newxpos;
@@ -158,11 +158,10 @@ function initialize() {
     video.height(tileSize);
 }
 
-function changeZoom(zoom) {
+function changeTileSize(size) {
     tileUpdate(function(){
-    var video = videojs(id, { loop: true, loadingSpinner: false });
-    video.width(zoom);
-    video.height(zoom);
+    var video = videojs(id);
+    video.dimensions(size,size);
 });
 }
 

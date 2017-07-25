@@ -2,8 +2,7 @@
 
     body {
         width: 100%;
-        overflow-x:hidden;
-        
+
 
     }
     
@@ -15,8 +14,9 @@
     
     #videoContainer {
         position: absolute;
-        overflow: hidden;
 
+    outline:5px solid green;
+        overflow: hidden;
        }
 
     
@@ -27,11 +27,16 @@
 
 
 
+.video-js {
+  -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    outline: none;
+}
 
+td {
 
-th{
-
-    background-image: url("seafront/seafront_full/twolevels/level3/pics/01_01_8.jpg");
     background-size:     cover; 
     padding:0; margin:0;
 }
@@ -40,6 +45,9 @@ tr{
     padding:0; margin:0;
 }
 
+/*#videoinfo td{
+    max-width: 100;
+}*/
 
 
 

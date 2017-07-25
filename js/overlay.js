@@ -8,10 +8,10 @@ var ytilesWindow = 2;
 var tileSize;
 
 
-$(document).ready(function(){
-    tileSize = $(window).width()/(xtilesWindow-1); 
+$(document).ready(function() {
+    //tileSize = $(window).width()/(xtilesWindow-1); 
+    tileSize = 800;
     tileUpdate(tiles);
-    overlay();
     $(document).trigger("startMaster");
 });
 
@@ -20,42 +20,44 @@ $(document).ready(function(){
 
 
 function tiles() {
-  for (ytile = 0; ytile < ytilesWindow; ytile++) {
-        $("#videos").append("<tr>");
+    var content = "";
+    for (ytile = 0; ytile < ytilesWindow; ytile++) {
+        content += "<tr>";
         for (xtile = 0; xtile < xtilesWindow; xtile++) {
             id = xtile + "_" + ytile;
-            $("#videos").append('<th> <video id="' + id + '" class="video-js"></video></th>');
+            content +='<td> <video id="' + id + '" class="video-js"></video></td>';
         }
-        $("#videos").append("</tr>");
+        content += "</tr>";
     }
- $("#videoContainer").css("left", -tileSize/2).css("top", -tileSize/2);
+    $("#videos").append(content);
+    //$("#videoContainer").css("left", -tileSize/2).css("top", -tileSize/2);
+    $("#videoContainer").css("height", tileSize * (ytilesWindow - 1)).css("width", tileSize * (xtilesWindow - 1));
 }
 
-function overlay(){
-        var x = tileSize/2;
-        $('.overlay:eq(0)').css({
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: x
-        });
-        $('.overlay:eq(1)').css({
-            top: 0,
-            left: 0,
-            width: x,
-            height: '100%'
-        });
-        $('.overlay:eq(2)').css({
-            bottom: 0,
-            right: 0,
-            width: x,
-            height: '100%'
-        });
-        $('.overlay:eq(3)').css({
-            bottom: 0,
-            right: 0,
-            width: '100%',
-            height: x
-        });
-}
+/*
 
+window.onload = function start() {
+    videoInfo();
+};
+
+function videoInfo() {
+
+    for (ytile = 0; ytile < ytilesWindow; ytile++) {
+        $("#videoInfo").append("<tr>");
+        for (xtile = 0; xtile < xtilesWindow; xtile++) {
+            id = xtile + "_" + ytile;
+            $("#videoInfo").append('<td>0</td>');
+        }
+        $("#videoInfo").append("</tr>");
+    }
+
+
+    window.setInterval(function() {
+        // increase by num 1, reset to 0 at 4
+        num = (num + 1) % 4;
+
+        // -600 * 1 = -600, -600 * 2 = -1200, etc 
+        style.marginLeft = (-600 * num) + "px";
+    }, 3000); // repeat forever, polling every 3 seconds
+}
+*/
