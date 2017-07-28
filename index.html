@@ -6,27 +6,38 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="videojs/video-js.css" rel="stylesheet">
     <script src="videojs/video.js"></script>
-    <script src="js/initialize.js"></script>
-    <script src="js/vidsetup.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/videos.js"></script>
     <script src="sync/src/synchronize.js"></script>
+    <script src="js/controls.js"></script>
     <script src="js/sync.js"></script>
-    <script src="js/overlay.js"></script>
+    <script src="js/document.js"></script>
     <link href="styles.css" rel="stylesheet">
 </head>
 
 <body>
     <div class="hidden-xs">
         <div id="videoContainer">
+            <div class="hidden" id="buffering">
+                <!--video id="base" class="video-js" controls preload="auto" width="1920" height="1200" mediagroup="main" data-setup='{"loop": true, "loadingSpinner": false}'>
+                    <source src="seafront/base.mp4" type="video/mp4" />
+                </video-->
+            </div>
             <table id="videos">
             </table>
         </div>
-        <div class="row" id="info">
-            <span id="currentTime" class="col-sm-12 text-right"></span>
-            <span id="bufferInfo" class="col-sm-12 text-right"></span>
-            <!--table id="videoInfo" class="col-sm-12 text-right"></table-->
+        <div id="info" class="pull-right">
+            <div class="text-right"><span id="currentTime"></span></div>
+            <div class="text-right"><span id="bufferInfo"></span></div>
+            <div class="text-right">
+                <button class="text-right"><a id="toggleVideos" href="?video=false">disable videos</a></button>
+                <button class="text-right"><a id="toggleVideos" href="?video=true">enable videos</a></button>
+            </div>
+            <div class="text-right">
+            <table id="videoInfo"></table>
+            </div>
         </div>
-    </div>
-    <!--span class="visible-xs">
+        <!--span class="visible-xs">
     Your browser window is too small.
     </span-->
 </body>

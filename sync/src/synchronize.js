@@ -26,9 +26,9 @@
     var lastSynch = 0;
     var synchInterval = 1000; // ms
     // prevent that a slave video lags before even starting to synchronize
-    var synchGap = 1.0; // s
+    var synchGap = 0; // s
     // maximum gap that is accepted before seeking (higher playback rate to fill the gap)
-    var maxGap = 1; // s
+    var maxGap = 0.5; // s
     var playbackrateIncrease = 0.5;
     var playbackrateDecrease = -0.5;
     var seekAhead = 0.25; // s
@@ -62,6 +62,7 @@
     var usingFlash = false;
 
     $.synchronizeVideos = synchronizeVideos;
+
 
     function log(vals) {
         if (debug && window.console) {
@@ -255,7 +256,7 @@
     function pause(id) {
         if (id) {
             log('SJS: [pause] Pausing video element id \'' + id + '\'');
-            return getVideo(id).pause();
+            return true;
         } else {
             log('SJS: [pause] Undefined video element id \'' + id + '\'');
             return false;
